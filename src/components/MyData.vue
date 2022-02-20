@@ -51,8 +51,16 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 .Mydata {
-	margin: auto;
+	height: 100%;
+	margin-top: -200px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	.el-descriptions {
+		width: 55%;
+	}
 }
 </style>

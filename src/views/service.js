@@ -1,12 +1,16 @@
 import http from "../common/http.js";
 
-export const loginInReq = (id, password) => {
-	return http.get("/Home/Login", { params: { id, password } });
+export const loginInReq = (name, password) => {
+	return http.get("/Home/Login", { params: { name, password } });
 };
 
 export const loginInReqRegister = (name, password) => {
 	return http.get("/Home/Registered", { params: { name, password } });
 };
+
+export const deleteUser = (name) => {
+	return http.get("/Home/deleteUser", {params: { name: name }})
+}
 
 export const upData = (id, name, password, picture) => {
 	return http.get("/Home/ModifyStudent", {

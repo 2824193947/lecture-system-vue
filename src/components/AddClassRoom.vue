@@ -8,15 +8,10 @@
 				<div style="width: 20%; position: relative; margin: auto">
 					<br />
 					<br />
-					<el-input
-						v-model="newClassRoom"
-						placeholder="请输入新教室名"
-					/>
+					<el-input v-model="newClassRoom" placeholder="请输入新教室名" />
 					<br />
 					<br />
-					<el-button type="primary" icon="el-icon-edit" @click="Add"
-						>新增</el-button
-					>
+					<el-button type="primary" icon="el-icon-edit" @click="Add">新增</el-button>
 				</div>
 			</el-main>
 		</el-container>

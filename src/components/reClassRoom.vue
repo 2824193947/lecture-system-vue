@@ -1,6 +1,6 @@
 <template>
 	<div class="reClassR">
-		<el-table :data="tableData" style="width: 100%" max-height="300" border>
+		<el-table :data="tableData" style="width: 29%" max-height="300" border>
 			<el-table-column prop="id" label="教室号" width="180" />
 			<el-table-column prop="classroomname" label="教室名" width="180" />
 		</el-table>
@@ -47,8 +47,15 @@ export default {
 };
 </script>
 
-<style>
+<style scoped lang="scss">
 .reClassR {
-	margin: auto;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	.el-input {
+		width: 250px;
+	}
 }
 </style>

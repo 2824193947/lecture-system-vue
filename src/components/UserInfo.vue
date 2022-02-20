@@ -7,7 +7,7 @@
 		label-width="120px"
 		class="login-form"
 	>
-		<el-form-item label="学号" prop="id" v-if="!showCheck">
+		<el-form-item label="用户名" prop="id" v-if="!showCheck">
 			<el-input v-model="formModel.id"></el-input>
 		</el-form-item>
 		<el-form-item label="名字" prop="name" v-if="showCheck">
@@ -80,11 +80,7 @@ export default defineComponent({
 			id: [
 				{
 					required: true,
-					message: "请输入学号",
-				},
-				{
-					pattern: /^[0-9]+$/,
-					message: "学号必须是数字",
+					message: "请输入用户名",
 				},
 			],
 			name: [

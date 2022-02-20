@@ -7,6 +7,7 @@ import reClassRoom from "../components/reClassRoom.vue";
 import AddClassRoom from "../components/AddClassRoom.vue";
 import UpdataRoom from "../components/UpdataRoom.vue";
 import MyData from "../components/MyData.vue";
+import AddLcture from "../components/AddLcture.vue";
 const routes = [
 	{ path: "/", component: Login },
 	{
@@ -19,6 +20,7 @@ const routes = [
 			{ path: "AddClassRoom", component: AddClassRoom },
 			{ path: "UpdataRoom", component: UpdataRoom },
 			{ path: "MyData", component: MyData },
+			{ path: "AddLcture", component: AddLcture },
 		],
 	},
 ];

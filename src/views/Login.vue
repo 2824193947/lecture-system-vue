@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="container">
 		<div class="switch">
 			<el-switch
 				class="switch"
@@ -88,7 +88,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.container {
+	width: 100vw;
+	height: 100vh;
+	background-color: #fff;
+}
 .Login {
 	width: 30%;
 	height: 40%;
