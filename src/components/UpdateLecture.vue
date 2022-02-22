@@ -2,7 +2,7 @@
     <div :style="container">
         <el-container>
             <el-main>
-                <h3>讲座发布</h3>
+                <h3>讲座修改</h3>
                 <br />
                 <el-divider>请输入</el-divider>
                 <div style="width: 20%; position: relative; margin: auto">
@@ -11,7 +11,7 @@
                     <el-input v-model="ClassRoom" placeholder="请输入讲座教室名" />
                     <el-input v-model="lctureInfo" placeholder="请输入讲座名称" />
                     <br />
-                    <el-button type="primary" icon="el-icon-edit" @click="Add">新增</el-button>
+                    <el-button type="primary" icon="el-icon-edit" @click="Add">修改</el-button>
                 </div>
             </el-main>
         </el-container>
@@ -20,7 +20,7 @@
 
 <script>
 import { ref } from "vue";
-import { AddLcture } from "../views/service.js";
+import { UpdateLecture } from "../views/service.js";
 import { ElMessage } from "element-plus";
 import { useStore } from "vuex";
 export default {
@@ -33,13 +33,13 @@ export default {
         const ClassRoom = ref("");
         const lctureInfo = ref("")
         const Add = () => {
-            AddLcture(lctureInfo.value, ClassRoom.value).then(
+            UpdateLecture(lctureInfo.value, ClassRoom.value).then(
                 (res) => {
                     console.log(res);
-                    if (res.data === '添加讲座成功') {
-                        ElMessage.success("新增成功！");
+                    if (res.data === '修改讲座成功') {
+                        ElMessage.success("修改成功！");
                     } else {
-                        ElMessage.error("新增失败！");
+                        ElMessage.error("修改失败！");
                     }
                 },
             );

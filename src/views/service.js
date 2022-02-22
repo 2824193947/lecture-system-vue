@@ -35,3 +35,19 @@ export const UpdataRoom = (id, classRoomName) => {
 		params: { id, classRoomName },
 	});
 };
+
+export const AddLcture = (lectureinfo, classroomname) => {
+	return http.get("/Home/addleature", {
+		params: { lectureinfo, classroomname },
+	});
+};
+
+export const SelectLecture = () => {
+	return http.get("/Home/selectlecture", {});
+};
+
+export const UpdateLecture = (lectureinfo, classroomname) => {
+	return http.get("/Home/updateleature", {
+		params: { lectureinfo, classroomname }
+	});
+};

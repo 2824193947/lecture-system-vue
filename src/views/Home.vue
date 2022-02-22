@@ -1,17 +1,16 @@
 <template>
 	<div>
-		<el-header >
-				<span>
-					Hi~
-					<span style="font-size: 30px">&nbsp;{{ userName }}</span>
-					&nbsp;&nbsp;你的id是:
-					<span style="font-size: 30px">{{id}}</span>
-				</span>
+		<el-header>
+			<el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+			<span>
+				用户名:
+				<span style="font-size: 30px">&nbsp;{{ userName }}</span>
+			</span>
 		</el-header>
 			<el-container style="border: 1px solid #eee" :style="container">
 			<el-aside width="17%">
 				<div class="menu-head">
-					<i class="el-icon-message"></i>
+					<i class="fab fa-audible"></i>
 					<span>文博教育讲座预约系统</span>
 				</div>
 				<el-menu :default-openeds="['1']">
@@ -20,39 +19,35 @@
 						<el-menu-item-group>
 							<el-menu-item index="1-1" @click="pushAdd">增加信息</el-menu-item>
 							<el-menu-item index="1-2" @click="pushUpdata">修改信息</el-menu-item>
-							<el-menu-item index="1-3" @click="pushReClassRoom">教室预约</el-menu-item>
 						</el-menu-item-group>
-						<el-sub-menu index="1-4">
-							<template #title><i class="el-icon-menu"></i>教室操作</template>
-							<el-menu-item index="1-4-1" @click="pushAddClassRoom">教室新增</el-menu-item>
-							<el-menu-item index="1-4-2" @click="pushUpdataClassRoom">教室修改</el-menu-item>
-						</el-sub-menu>
 					</el-sub-menu>
 					<el-sub-menu index="2">
+							<template #title><i class="el-icon-menu"></i>教室操作</template>
+							<el-menu-item index="2-1" @click="pushAddClassRoom">教室新增</el-menu-item>
+							<el-menu-item index="2-2" @click="pushUpdataClassRoom">教室修改</el-menu-item>
+							<el-menu-item index="2-3" @click="pushReClassRoom">教室预约</el-menu-item>
+						</el-sub-menu>
+					<el-sub-menu index="3">
 						<template #title><i class="fas fa-user-astronaut mr"></i>个人信息</template>
 						<el-menu-item-group>
-							<el-menu-item index="2-1" @click="pushMyData">我的信息</el-menu-item>
-							<el-menu-item index="2-2" @click="pushAdd"
-								>已预约的教室</el-menu-item
-							>
-							<el-menu-item index="2-3" @click="pushAdd"
-								>修改信息</el-menu-item
-							>
-						</el-menu-item-group>
-					</el-sub-menu>
-					<el-sub-menu index="3">
-						<template #title><i class="fab fa-amazon mr"></i>讲座管理</template>
-						<el-menu-item-group>
-							<el-menu-item index="3-1" @click="$router.push('/Home/AddLcture')">讲座发布</el-menu-item>
-							<el-menu-item index="3-2" @click="">讲座修改</el-menu-item>
-							<el-menu-item index="3-3" @click="">讲座查询</el-menu-item>
+							<el-menu-item index="3-1" @click="pushMyData">我的信息</el-menu-item>
+							<el-menu-item index="3-2" @click="pushAdd">已预约的教室</el-menu-item>
 						</el-menu-item-group>
 					</el-sub-menu>
 					<el-sub-menu index="4">
+						<template #title><i class="fab fa-amazon mr"></i>讲座管理</template>
+						<el-menu-item-group>
+							<el-menu-item index="4-1" @click="$router.push('/Home/AddLcture')">讲座发布</el-menu-item>
+							<el-menu-item index="4-2" @click="$router.push('/Home/UpdateLecture')">讲座修改</el-menu-item>
+							<el-menu-item index="4-3" @click="$router.push('/Home/DeleteLecture')">讲座删除</el-menu-item>
+							<el-menu-item index="4-4" @click="$router.push('/Home/QueryLecture')">讲座查询</el-menu-item>
+						</el-menu-item-group>
+					</el-sub-menu>
+					<el-sub-menu index="5">
 						<template #title><i class="el-icon-setting"></i>设置</template>
 						<el-menu-item-group>
-							<el-menu-item index="3-1" @click="pushLogin">退出登录</el-menu-item>
-							<el-menu-item index="3-2" @click="deleteinfo(userName)">注销账号</el-menu-item>
+							<el-menu-item index="5-1" @click="pushLogin">退出登录</el-menu-item>
+							<el-menu-item index="5-2" @click="deleteinfo(userName)">注销账号</el-menu-item>
 						</el-menu-item-group>
 					</el-sub-menu>
 				</el-menu>
@@ -80,8 +75,8 @@ export default {
 				margin: "auto",
 				display: "flex"
 			},
-			userName: this.$store.state.studentdata.name,
-			id: this.$store.state.studentdata.id,
+			userName: this.$store.state.studentdata && this.$store.state.studentdata.name,
+			id: this.$store.state.studentdata && this.$store.state.studentdata.id,
 		};
 	},
 	created() {
@@ -126,9 +121,10 @@ export default {
 	margin: 9px;
 }
 .menu-head {
-	margin-top:10px;
+	margin:10px 0;
 	i {
 		color: #4a91e2;
+		font-size: 25px;
 	}
 	span {
 		font-weight: bold;
@@ -138,22 +134,27 @@ export default {
 }
 .el-header {
 	text-align: right;
-	font-size: 17px;
+	font-size: 16px;
 	position: absolute;
 	right: 0;
+	display: flex;
+	align-items: center;
+	.el-avatar {
+		margin-right: 5px;
+	}
 }
 .el-aside {
-	background-color: rgb(253, 253, 253);
+	background-color: rgb(211, 211, 211);
 	min-height: 100vh;
 	.el-menu {
-		background-color: rgb(253, 253, 253);
+		background-color: rgb(211, 211, 211);
 		.el-menu-item-group {
-			background-color: rgb(253, 253, 253);
+			background-color: rgb(211, 211, 211);
 		}
 		.el-sub-menu {
-			background-color: rgb(253, 253, 253);
+			background-color: rgb(211, 211, 211);
 			.el-menu-item {
-				background-color: rgb(253, 253, 253);
+				background-color: rgb(211, 211, 211);
 			}
 		}
 	}
