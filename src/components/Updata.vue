@@ -6,27 +6,15 @@
 				<br />
 				<el-divider>请输入</el-divider>
 				<div style="width: 20%; position: relative; margin: auto">
-					<el-input
-						v-model="updataName"
-						placeholder="请输入新名字"
-						class="addInput"
-					/>
+					<el-input v-model="updataName" placeholder="请输入新名字" class="addInput" />
 					<br />
 					<br />
-					<el-input
-						v-model="updataPassword"
-						placeholder="请输入新密码"
-						show-password
-					/>
+					<el-input v-model="updataPassword" placeholder="请输入新密码" show-password />
 					<br />
 					<br />
-					<el-button
-						type="primary"
-						icon="el-icon-edit"
-						@click="updataUser"
-						>修改</el-button
-					>
+					<el-button type="primary" icon="el-icon-edit" @click="updataUser">修改</el-button>
 				</div>
+				
 			</el-main>
 		</el-container>
 	</div>
@@ -57,9 +45,10 @@ export default {
 		const updataPassword = ref("");
 		const updataName = ref("");
 		const picture = "";
+		const id = store.state.studentdata.id;
 		const updataUser = () => {
 			upData(
-				store.state.studentdata.id,
+				id,
 				updataName.value,
 				updataPassword.value,
 				picture

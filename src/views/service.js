@@ -36,6 +36,10 @@ export const UpdataRoom = (id, classRoomName) => {
 	});
 };
 
+export const AllClassRoom = () => {
+	return http.get("/Home/allClassRoom");
+};
+
 export const AddLcture = (lectureinfo, classroomname) => {
 	return http.get("/Home/addleature", {
 		params: { lectureinfo, classroomname },
@@ -49,5 +53,21 @@ export const SelectLecture = () => {
 export const UpdateLecture = (lectureinfo, classroomname) => {
 	return http.get("/Home/updateleature", {
 		params: { lectureinfo, classroomname }
+	});
+};
+
+export const DeleteLecture = (classroomname) => {
+	return http.get("/Home/deleteleature", {
+		params: { classroomname }
+	});
+};
+
+export const SelectUser = () => {
+	return http.get("/Home/selective");
+};
+
+export const ModifyRole = (name, role) => {
+	return http.get("/Home/modifyRole", {
+		params: { name, role }
 	});
 };

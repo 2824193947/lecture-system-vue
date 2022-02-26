@@ -27,7 +27,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { SelectLecture, DeleteLecture, ModifyRole } from '../views/service'
+import { SelectUser, DeleteLecture } from '../views/service'
 import { ElMessageBox } from 'element-plus'
 
 let tableData = ref([])
@@ -36,13 +36,10 @@ const info = ref("")
 
 onMounted(() => {
   selectlect()
-  ModifyRole("zky666", 'aaa').then((res) => {
-    console.log(res);
-  })
 })
 
 const selectlect = () => {
-  SelectLecture().then((res) => {
+  SelectUser().then((res) => {
     tableData.value = res.data
   })
 }
