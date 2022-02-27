@@ -32,7 +32,8 @@
 						<template #title><i class="fas fa-user-astronaut mr"></i>个人信息</template>
 						<el-menu-item-group>
 							<el-menu-item index="3-1" @click="pushMyData">我的信息</el-menu-item>
-							<el-menu-item index="3-2" @click="pushAdd">已预约的教室</el-menu-item>
+							<el-menu-item index="3-2" @click="">讲座预约</el-menu-item>
+							<el-menu-item index="3-3" @click="pushAdd">待参加讲座</el-menu-item>
 						</el-menu-item-group>
 					</el-sub-menu>
 					<el-sub-menu index="4">

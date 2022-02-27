@@ -40,9 +40,9 @@ export const AllClassRoom = () => {
 	return http.get("/Home/allClassRoom");
 };
 
-export const AddLcture = (lectureinfo, classroomname) => {
+export const AddLcture = (lectureinfo, classroomname, date) => {
 	return http.get("/Home/addleature", {
-		params: { lectureinfo, classroomname },
+		params: { lectureinfo, classroomname, date },
 	});
 };
 
@@ -56,9 +56,9 @@ export const UpdateLecture = (lectureinfo, classroomname) => {
 	});
 };
 
-export const DeleteLecture = (classroomname) => {
+export const DeleteLecture = (lectureinfo) => {
 	return http.get("/Home/deleteleature", {
-		params: { classroomname }
+		params: { lectureinfo }
 	});
 };
 
@@ -69,5 +69,11 @@ export const SelectUser = () => {
 export const ModifyRole = (name, role) => {
 	return http.get("/Home/modifyRole", {
 		params: { name, role }
+	});
+};
+
+export const SelectLectureClass = (classroomname) => {
+	return http.get("/Home/selectlectureclass", {
+		params: { classroomname }
 	});
 };

@@ -3,6 +3,7 @@
     <el-table :data="tableData" style="width: 98%">
       <el-table-column label="预约讲座" prop="lectureinfo" />
       <el-table-column label="教室" prop="classroomname" />
+      <el-table-column label="日期" prop="date" />
       <el-table-column align="right">
         <template #default="scope">
           <el-button
@@ -36,9 +37,6 @@ const info = ref("")
 
 onMounted(() => {
   selectlect()
-  ModifyRole("zky666", 'aaa').then((res) => {
-    console.log(res);
-  })
 })
 
 const selectlect = () => {
@@ -50,13 +48,12 @@ const selectlect = () => {
 // 删除按钮
 const handleDelete = (index, row) => {
   dialogVisible.value = true
-  info.value = row.classroomname
+  info.value = row.lectureinfo
 }
 // 删除方法
 const del = (lectureinfo) => {
   dialogVisible.value = false
   DeleteLecture(lectureinfo).then((res) => {
-    console.log(res);
     selectlect()
   })
 }
