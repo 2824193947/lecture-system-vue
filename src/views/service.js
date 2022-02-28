@@ -77,3 +77,26 @@ export const SelectLectureClass = (classroomname) => {
 		params: { classroomname }
 	});
 };
+
+export const AddAppointment = (name, lectureinfo, date, sign) => {
+	return http.get("/Home/addappointment", {
+		params: {
+			name,
+			lectureinfo,
+			date,
+			sign
+		}
+	});
+};
+
+export const SelectAppointment = (name) => {
+	return http.get("/Home/selectappointment", {
+		params: { name }
+	});
+};
+
+export const UpdateAppointment = (  sign,  lectureinfo,  date) => {
+	return http.get("/Home/updateappointment", {
+		params: {   sign,  lectureinfo,  date }
+	});
+};

@@ -11,6 +11,8 @@ import AddLcture from "../components/AddLcture.vue";
 import QueryLecture from "../components/QueryLecture.vue";
 import UpdateLecture from "../components/UpdateLecture.vue";
 import SelectUser from "../components/SelectUser.vue";
+import Appointment from "../components/Appointment.vue";
+import Dign from "../components/Dign.vue";
 const routes = [
 	{ path: "/", component: Login },
 	{
@@ -27,6 +29,8 @@ const routes = [
 			{ path: "QueryLecture", component: QueryLecture },
 			{ path: "UpdateLecture", component: UpdateLecture },
 			{ path: "SelectUser", component: SelectUser },
+			{ path: "Appointment", component: Appointment },
+			{ path: "Dign", component: Dign },
 		],
 	},
 ];

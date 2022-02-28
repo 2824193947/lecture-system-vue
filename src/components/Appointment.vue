@@ -8,18 +8,20 @@
         <template #default="scope">
           <el-button
             size="small"
-            type="danger"
+            type="success"
             @click="handleDelete(scope.$index, scope.row)"
-          >Delete</el-button>
+          >
+						预约
+					</el-button>
         </template>
       </el-table-column>
     </el-table>
     <el-dialog v-model="dialogVisible" width="30%" :before-close="handleClose">
-      <span>确认删除讲座吗?</span>
+      <span>确认预约讲座吗?</span>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="dialogVisible = false">Cancel</el-button>
-          <el-button type="primary" @click="del(info)">Confirm</el-button>
+          <el-button @click="dialogVisible = false">取消</el-button>
+          <el-button type="primary" @click="del(Username, info, date, 0)">确认</el-button>
         </span>
       </template>
     </el-dialog>
@@ -28,14 +30,21 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { SelectLecture, DeleteLecture, ModifyRole } from '../views/service'
+import { useStore } from 'vuex';
+import { SelectLecture, AddAppointment } from '../views/service'
 import { ElMessageBox } from 'element-plus'
 
 let tableData = ref([])
 const dialogVisible = ref(false)
 const info = ref("")
+const classroom = ref("")
+const date = ref("")
+const Username = ref("")
+const store = useStore()
+Username.value = store.state.studentdata.name
 
 onMounted(() => {
+	console.log("name", Username.value);
   selectlect()
 })
 
@@ -44,16 +53,17 @@ const selectlect = () => {
     tableData.value = res.data
   })
 }
-
 // 删除按钮
 const handleDelete = (index, row) => {
   dialogVisible.value = true
   info.value = row.lectureinfo
+	date.value = row.date
 }
 // 删除方法
-const del = (lectureinfo) => {
+const del = (classroomname, lectureinfo, date, sign) => {
   dialogVisible.value = false
-  DeleteLecture(lectureinfo).then((res) => {
+  AddAppointment(classroomname, lectureinfo, date, sign).then((res) => {
+
     selectlect()
   })
 }

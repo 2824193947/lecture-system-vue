@@ -7,7 +7,7 @@
 				<span style="font-size: 30px">&nbsp;{{ userName }}</span>
 			</span>
 		</el-header>
-			<el-container style="border: 1px solid #eee" :style="container">
+		<el-container style="border: 1px solid #eee" :style="container">
 			<el-aside width="17%">
 				<div class="menu-head">
 					<i class="fab fa-audible"></i>
@@ -15,7 +15,9 @@
 				</div>
 				<el-menu :default-openeds="['4']">
 					<el-sub-menu index="1">
-						<template #title><i class="el-icon-message"></i>信息操作</template>
+						<template #title>
+							<i class="el-icon-message"></i>信息操作
+						</template>
 						<el-menu-item-group>
 							<el-menu-item index="1-1" @click="pushAdd">增加信息</el-menu-item>
 							<el-menu-item index="1-2" @click="pushUpdata">修改信息</el-menu-item>
@@ -23,21 +25,26 @@
 						</el-menu-item-group>
 					</el-sub-menu>
 					<el-sub-menu index="2">
-							<template #title><i class="el-icon-menu"></i>教室操作</template>
-							<el-menu-item index="2-1" @click="pushAddClassRoom">教室新增</el-menu-item>
-							<el-menu-item index="2-2" @click="pushUpdataClassRoom">教室修改</el-menu-item>
-							<el-menu-item index="2-3" @click="pushReClassRoom">教室预约</el-menu-item>
-						</el-sub-menu>
+						<template #title>
+							<i class="el-icon-menu"></i>教室操作
+						</template>
+						<el-menu-item index="2-1" @click="pushAddClassRoom">教室新增</el-menu-item>
+						<el-menu-item index="2-2" @click="pushUpdataClassRoom">教室修改</el-menu-item>
+					</el-sub-menu>
 					<el-sub-menu index="3">
-						<template #title><i class="fas fa-user-astronaut mr"></i>个人信息</template>
+						<template #title>
+							<i class="fas fa-user-astronaut mr"></i>个人信息
+						</template>
 						<el-menu-item-group>
 							<el-menu-item index="3-1" @click="pushMyData">我的信息</el-menu-item>
-							<el-menu-item index="3-2" @click="">讲座预约</el-menu-item>
-							<el-menu-item index="3-3" @click="pushAdd">待参加讲座</el-menu-item>
+							<el-menu-item index="3-2" @click="$router.push('/Home/Appointment')">讲座预约</el-menu-item>
+							<el-menu-item index="3-3" @click="$router.push('/Home/Dign')">待参加讲座</el-menu-item>
 						</el-menu-item-group>
 					</el-sub-menu>
 					<el-sub-menu index="4">
-						<template #title><i class="fab fa-amazon mr"></i>讲座管理</template>
+						<template #title>
+							<i class="fab fa-amazon mr"></i>讲座管理
+						</template>
 						<el-menu-item-group>
 							<el-menu-item index="4-1" @click="$router.push('/Home/AddLcture')">讲座发布</el-menu-item>
 							<el-menu-item index="4-2" @click="$router.push('/Home/UpdateLecture')">讲座修改</el-menu-item>
@@ -45,10 +52,12 @@
 						</el-menu-item-group>
 					</el-sub-menu>
 					<el-sub-menu index="5">
-						<template #title><i class="el-icon-setting"></i>设置</template>
+						<template #title>
+							<i class="el-icon-setting"></i>设置
+						</template>
 						<el-menu-item-group>
 							<el-menu-item index="5-1" @click="pushLogin">退出登录</el-menu-item>
-							<el-menu-item index="5-2" @click="deleteinfo(userName)">注销账号</el-menu-item>
+							<el-menu-item index="5-2" @click="deleteinfo(userName)">注销账号</el-menu-item> 
 						</el-menu-item-group>
 					</el-sub-menu>
 				</el-menu>
@@ -62,6 +71,7 @@
 
 <script>
 import { deleteUser } from "./service.js";
+import LocalStorage from "../utils/store"
 
 export default {
 	name: "Home",
@@ -76,11 +86,11 @@ export default {
 				margin: "auto",
 				display: "flex"
 			},
-			userName: this.$store.state.studentdata && this.$store.state.studentdata.name,
-			id: this.$store.state.studentdata && this.$store.state.studentdata.id,
+			userName: LocalStorage.getLocalstore("studentInfo").name,
 		};
 	},
 	created() {
+		console.log("studentdata", this.$store.state.studentdata);
 		console.log(this.userName);
 	},
 	methods: {
@@ -97,6 +107,8 @@ export default {
 			this.$router.push("/Home/AddClassRoom");
 		},
 		pushLogin() {
+			localStorage.removeItem('studentInfo')
+			localStorage.removeItem('classInfo')
 			this.$router.push("/");
 		},
 		pushUpdataClassRoom() {
@@ -106,6 +118,8 @@ export default {
 			this.$router.push("/Home/MyData");
 		},
 		deleteinfo(userName) {
+			localStorage.removeItem('studentInfo')
+			localStorage.removeItem('classInfo')
 			deleteUser(userName).then((res) => {
 				this.$message.error("注销成功");
 				this.$router.push("/");
@@ -122,7 +136,7 @@ export default {
 	margin: 9px;
 }
 .menu-head {
-	margin:10px 0;
+	margin: 10px 0;
 	i {
 		color: #4a91e2;
 		font-size: 25px;

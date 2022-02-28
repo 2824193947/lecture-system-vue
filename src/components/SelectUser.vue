@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <el-table :data="tableData" style="width: 98%">
-      <el-table-column label="预约讲座" prop="lectureinfo" />
-      <el-table-column label="教室" prop="classroomname" />
+      <el-table-column label="用户名" prop="name" />
+      <el-table-column label="权限" prop="role" />
       <el-table-column align="right">
         <template #default="scope">
           <el-button
@@ -40,6 +40,7 @@ onMounted(() => {
 
 const selectlect = () => {
   SelectUser().then((res) => {
+    console.log("🚀 ~ res", res.data)
     tableData.value = res.data
   })
 }

@@ -1,11 +1,7 @@
 <template>
 	<div class="container">
 		<div class="switch">
-			<el-switch
-				class="switch"
-				v-model="isActive"
-				inactive-color="#13ce66"
-			/>
+			<el-switch class="switch" v-model="isActive" inactive-color="#13ce66" />
 		</div>
 		<div class="Login">
 			<div :class="{ swValue: isActive }" class="tranf">
@@ -15,10 +11,7 @@
 				</div>
 				<div class="back">
 					<h2 style="position: relative; top: 50px">欢迎注册</h2>
-					<user-info
-						showCheck
-						@register-sub="submitFormTow"
-					></user-info>
+					<user-info showCheck @register-sub="submitFormTow"></user-info>
 				</div>
 			</div>
 		</div>
@@ -28,6 +21,7 @@
 <script>
 import UserInfo from "../components/UserInfo.vue";
 import { loginInReq, loginInReqRegister } from "./service.js";
+import Localstore from '../utils/store'
 // import http from "../common/http.js";
 // import axios from "axios";
 export default {
@@ -49,8 +43,10 @@ export default {
 						this.$message.error("登录失败");
 					} else {
 						this.$message.success("登录成功");
-						this.$store.commit("resData", res.data.studentInfo);
-						this.$store.commit("resDataT", res.data.classInfo);
+						Localstore.setLocalstore('studentInfo', res.data.studentInfo)
+						Localstore.setLocalstore('classInfo', res.data.classInfo)
+						// this.$store.commit("resData", res.data.studentInfo);
+						// this.$store.commit("resDataT", res.data.classInfo);
 						setTimeout(() => {
 							this.$router.push("/Home");
 						}, 1000);
@@ -71,7 +67,8 @@ export default {
 						this.$message.error("注册失败");
 					} else {
 						this.$message.success("注册成功");
-						this.$store.commit("resData", res.data.studentInfo);
+						Localstore.setLocalstore('studentInfo', res.data.studentInfo)
+						// this.$store.commit("resData", res.data.studentInfo);
 						this.$store.commit("resDataT", res.data.classInfo);
 						setTimeout(() => {
 							this.$router.push("/Home");

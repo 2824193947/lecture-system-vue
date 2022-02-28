@@ -28,8 +28,10 @@ import { onMounted, ref, watch } from "vue";
 import { AddLcture, AllClassRoom, SelectLecture, SelectLectureClass } from "../views/service.js";
 import { ElMessage } from "element-plus";
 import { useStore } from "vuex";
+import QueryLecture from "./QueryLecture.vue"
 export default {
 	name: "AddLcture",
+	components: {QueryLecture},
 	setup(props) {
 		const container = {
 			width: "100%",
