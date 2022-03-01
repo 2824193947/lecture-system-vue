@@ -13,18 +13,17 @@
 					<i class="fab fa-audible"></i>
 					<span>文博教育讲座预约系统</span>
 				</div>
-				<el-menu :default-openeds="['4']">
-					<el-sub-menu index="1">
+				<el-menu :default-openeds="['3']">
+					<el-sub-menu index="1" v-if="role">
 						<template #title>
-							<i class="el-icon-message"></i>信息操作
+							<i class="el-icon-message"></i>管理员操作
 						</template>
 						<el-menu-item-group>
-							<el-menu-item index="1-1" @click="pushAdd">增加信息</el-menu-item>
-							<el-menu-item index="1-2" @click="pushUpdata">修改信息</el-menu-item>
-							<el-menu-item index="1-3" @click="$router.push('/Home/SelectUser')">所有用户</el-menu-item>
+							<el-menu-item index="1-1" @click="$router.push('/Home/SelectUser')">所有用户</el-menu-item>
+							<el-menu-item index="1-2" @click="$router.push('/Home/AdminSign')">人员签到</el-menu-item>
 						</el-menu-item-group>
 					</el-sub-menu>
-					<el-sub-menu index="2">
+					<el-sub-menu index="2" v-if="role">
 						<template #title>
 							<i class="el-icon-menu"></i>教室操作
 						</template>
@@ -37,17 +36,18 @@
 						</template>
 						<el-menu-item-group>
 							<el-menu-item index="3-1" @click="pushMyData">我的信息</el-menu-item>
-							<el-menu-item index="3-2" @click="$router.push('/Home/Appointment')">讲座预约</el-menu-item>
-							<el-menu-item index="3-3" @click="$router.push('/Home/Dign')">待参加讲座</el-menu-item>
+							<el-menu-item index="3-2" @click="pushUpdata">修改信息</el-menu-item>
+							<el-menu-item index="3-3" @click="$router.push('/Home/Appointment')">讲座预约</el-menu-item>
+							<el-menu-item index="3-4" @click="$router.push('/Home/Dign')">待参加讲座</el-menu-item>
 						</el-menu-item-group>
 					</el-sub-menu>
-					<el-sub-menu index="4">
+					<el-sub-menu index="4" v-if="role">
 						<template #title>
 							<i class="fab fa-amazon mr"></i>讲座管理
 						</template>
 						<el-menu-item-group>
 							<el-menu-item index="4-1" @click="$router.push('/Home/AddLcture')">讲座发布</el-menu-item>
-							<el-menu-item index="4-2" @click="$router.push('/Home/UpdateLecture')">讲座修改</el-menu-item>
+							<!-- <el-menu-item index="4-2" @click="$router.push('/Home/UpdateLecture')">讲座修改</el-menu-item> -->
 							<el-menu-item index="4-3" @click="$router.push('/Home/QueryLecture')">讲座查询</el-menu-item>
 						</el-menu-item-group>
 					</el-sub-menu>
@@ -57,7 +57,7 @@
 						</template>
 						<el-menu-item-group>
 							<el-menu-item index="5-1" @click="pushLogin">退出登录</el-menu-item>
-							<el-menu-item index="5-2" @click="deleteinfo(userName)">注销账号</el-menu-item> 
+							<el-menu-item index="5-2" @click="deleteinfo(userName)">注销账号</el-menu-item>
 						</el-menu-item-group>
 					</el-sub-menu>
 				</el-menu>
@@ -91,7 +91,7 @@ export default {
 	},
 	created() {
 		console.log("studentdata", this.$store.state.studentdata);
-		console.log(this.userName);
+		this.role = LocalStorage.getLocalstore("studentInfo").role === "admin" ? true : false
 	},
 	methods: {
 		pushUpdata() {

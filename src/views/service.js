@@ -12,9 +12,9 @@ export const deleteUser = (name) => {
 	return http.get("/Home/deleteUser", {params: { name: name }})
 }
 
-export const upData = (id, name, password, picture) => {
+export const upData = (id, name, password, oldname, picture) => {
 	return http.get("/Home/ModifyStudent", {
-		params: { id, name, password, picture },
+		params: { id, name, password, oldname, picture },
 	});
 };
 
@@ -78,10 +78,11 @@ export const SelectLectureClass = (classroomname) => {
 	});
 };
 
-export const AddAppointment = (name, lectureinfo, date, sign) => {
+export const AddAppointment = (name, classroomname, lectureinfo, date, sign) => {
 	return http.get("/Home/addappointment", {
 		params: {
 			name,
+			classroomname,
 			lectureinfo,
 			date,
 			sign
@@ -95,8 +96,8 @@ export const SelectAppointment = (name) => {
 	});
 };
 
-export const UpdateAppointment = (  sign,  lectureinfo,  date) => {
+export const UpdateAppointment = (  sign,  classroomname, lectureinfo,  date) => {
 	return http.get("/Home/updateappointment", {
-		params: {   sign,  lectureinfo,  date }
+		params: {   sign, classroomname, lectureinfo,  date }
 	});
 };

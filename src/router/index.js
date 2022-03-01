@@ -13,12 +13,15 @@ import UpdateLecture from "../components/UpdateLecture.vue";
 import SelectUser from "../components/SelectUser.vue";
 import Appointment from "../components/Appointment.vue";
 import Dign from "../components/Dign.vue";
+import AdminSign from "../components/AdminSign.vue";
+import page from "../components/page.vue";
 const routes = [
 	{ path: "/", component: Login },
 	{
 		path: "/Home",
 		component: Home,
 		children: [
+			{ path: "page", component: page },
 			{ path: "Updata", component: Updata },
 			{ path: "Add", component: Add },
 			{ path: "reClassRoom", component: reClassRoom },
@@ -31,6 +34,7 @@ const routes = [
 			{ path: "SelectUser", component: SelectUser },
 			{ path: "Appointment", component: Appointment },
 			{ path: "Dign", component: Dign },
+			{ path: "AdminSign", component: AdminSign },
 		],
 	},
 ];

@@ -25,6 +25,8 @@ import { ref } from "vue";
 import { upData } from "../views/service.js";
 import { useStore } from "vuex";
 import { ElMessage } from "element-plus";
+import LocalStorage from "../utils/store"
+
 export default {
 	name: "Add",
 	// data() {
@@ -44,18 +46,23 @@ export default {
 		const store = useStore();
 		const updataPassword = ref("");
 		const updataName = ref("");
+		const oldname = LocalStorage.getLocalstore("studentInfo").name
 		const picture = "";
 		const id = store.state.studentdata.id;
 		const updataUser = () => {
+			// localStorage.removeItem('studentInfo')
 			upData(
 				id,
 				updataName.value,
 				updataPassword.value,
+				oldname,
 				picture
 			).then(
 				(res) => {
-					store.commit("resData", res.data.studentInfo);
+					LocalStorage.setLocalstore('studentInfo', res.data)
+					// store.commit("resData", res.data.studentInfo);
 					ElMessage.success("修改成功");
+					location.reload()
 				},
 				(err) => {
 					ElMessage.error("修改失败");

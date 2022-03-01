@@ -1,8 +1,9 @@
 <template>
     <div class="container">
         <el-table :data="tableData" style="width: 98%">
-            <el-table-column label="预约讲座" prop="name" />
-            <el-table-column label="教室" prop="lectrueinfo" />
+            <el-table-column label="用户名" prop="name" />
+            <el-table-column label="教室" prop="classroomname" />
+            <el-table-column label="讲座名" prop="lectrueinfo" />
             <el-table-column label="日期" prop="date" />
             <el-table-column label="签到" prop="sign">
                 <template #default="scope">
@@ -12,7 +13,7 @@
                     >{{ scope.row.sign === '0' ? "未签到" : "已签到" }}</el-tag>
                 </template>
             </el-table-column>
-            <el-table-column align="right">
+            <!-- <el-table-column align="right">
                 <template #default="scope">
                     <el-button
                         size="small"
@@ -20,14 +21,14 @@
                         @click="handleDelete(scope.$index, scope.row)"
                     >签到</el-button>
                 </template>
-            </el-table-column>
+            </el-table-column> -->
         </el-table>
         <el-dialog v-model="dialogVisible" width="30%" :before-close="handleClose">
             <span>确认预约讲座吗?</span>
             <template #footer>
                 <span class="dialog-footer">
                     <el-button @click="dialogVisible = false">取消</el-button>
-                    <el-button type="primary" @click="del(1, info, date)">确认</el-button>
+                    <el-button type="primary" @click="del(1, classroom, info, date)">确认</el-button>
                 </span>
             </template>
         </el-dialog>
@@ -65,12 +66,13 @@ const selectlect = (Username) => {
 const handleDelete = (index, row) => {
     dialogVisible.value = true
     info.value = row.lectrueinfo
+    classroom.value = row.classroomname
     date.value = row.date
 }
 // 删除方法
-const del = (sign, lectureinfo, date) => {
+const del = (sign, classroom, lectureinfo, date) => {
     dialogVisible.value = false
-    UpdateAppointment(sign, lectureinfo, date).then((res) => {
+    UpdateAppointment(sign, classroom, lectureinfo, date).then((res) => {
         if (res.data === "签到成功") {
             ElMessage.success("签到成功");
             selectlect(Username.value)

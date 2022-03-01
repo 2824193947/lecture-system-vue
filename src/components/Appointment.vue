@@ -6,13 +6,7 @@
       <el-table-column label="日期" prop="date" />
       <el-table-column align="right">
         <template #default="scope">
-          <el-button
-            size="small"
-            type="success"
-            @click="handleDelete(scope.$index, scope.row)"
-          >
-						预约
-					</el-button>
+          <el-button size="small" type="success" @click="handleDelete(scope.$index, scope.row)">预约</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -21,7 +15,7 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="dialogVisible = false">取消</el-button>
-          <el-button type="primary" @click="del(Username, info, date, 0)">确认</el-button>
+          <el-button type="primary" @click="del(Username, classroom, info, date, 0)">确认</el-button>
         </span>
       </template>
     </el-dialog>
@@ -31,8 +25,8 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
-import { SelectLecture, AddAppointment } from '../views/service'
-import { ElMessageBox } from 'element-plus'
+import { SelectLecture, AddAppointment } from '../views/service';
+import { ElMessageBox, ElMessage } from 'element-plus';
 
 let tableData = ref([])
 const dialogVisible = ref(false)
@@ -44,7 +38,7 @@ const store = useStore()
 Username.value = store.state.studentdata.name
 
 onMounted(() => {
-	console.log("name", Username.value);
+  console.log("name", Username.value);
   selectlect()
 })
 
@@ -56,14 +50,21 @@ const selectlect = () => {
 // 删除按钮
 const handleDelete = (index, row) => {
   dialogVisible.value = true
+  classroom.value = row.classroomname
   info.value = row.lectureinfo
-	date.value = row.date
+  date.value = row.date
 }
 // 删除方法
-const del = (classroomname, lectureinfo, date, sign) => {
+const del = (name, classroomname, lectureinfo, date, sign) => {
   dialogVisible.value = false
-  AddAppointment(classroomname, lectureinfo, date, sign).then((res) => {
-
+  AddAppointment(name, classroomname, lectureinfo, date, sign).then((res) => {
+    if (res.data === "预约成功") {
+      ElMessage.success("预约成功");
+    } else if (res.data === "已预约") {
+      ElMessage.warning("已预约");
+    } else {
+      ElMessage.error("预约失败");
+    }
     selectlect()
   })
 }

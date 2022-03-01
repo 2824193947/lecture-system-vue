@@ -48,7 +48,7 @@ export default {
 						// this.$store.commit("resData", res.data.studentInfo);
 						// this.$store.commit("resDataT", res.data.classInfo);
 						setTimeout(() => {
-							this.$router.push("/Home");
+							this.$router.push("/Home/page");
 						}, 1000);
 					}
 					//this.$store.commit("resData", res);
@@ -68,10 +68,11 @@ export default {
 					} else {
 						this.$message.success("注册成功");
 						Localstore.setLocalstore('studentInfo', res.data.studentInfo)
+						Localstore.setLocalstore('classInfo', res.data.classInfo)
 						// this.$store.commit("resData", res.data.studentInfo);
-						this.$store.commit("resDataT", res.data.classInfo);
+						// this.$store.commit("resDataT", res.data.classInfo);
 						setTimeout(() => {
-							this.$router.push("/Home");
+							this.$router.push("/Home/page");
 						}, 1000);
 					}
 					//this.$store.commit("resData", res);
