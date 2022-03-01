@@ -1,7 +1,7 @@
 <template>
     <div class="addC">
         <div class="title"><i class="fab fa-audible"></i>&nbsp&nbsp文博教育管理系统</div>
-        <el-carousel :interval="4000" type="card" height="300px">
+        <el-carousel :interval="4000" type="card" height="200px">
             <el-carousel-item v-for="item in imgArr" :key="item.src">
                 <img :src="getImageUrl(item.src)" />
             </el-carousel-item>
@@ -40,7 +40,7 @@ export default {
     font-size: 30px;
 }
 .title {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 .el-carousel__item h3 {
   color: #475669;
@@ -50,7 +50,9 @@ export default {
   margin: 0;
   text-align: center;
 }
-
+.el-carousel {
+    margin: 0 10px;
+}
 .el-carousel__item:nth-child(2n) {
   background-color: #99a9bf;
 }
