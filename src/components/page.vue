@@ -1,7 +1,7 @@
 <template>
     <div class="addC">
         <div class="title"><i class="fab fa-audible"></i>&nbsp&nbsp文博教育管理系统</div>
-        <el-carousel :interval="4000" type="card" height="200px">
+        <el-carousel :interval="4000" type="card" height="270px">
             <el-carousel-item v-for="item in imgArr" :key="item.src">
                 <img :src="getImageUrl(item.src)" />
             </el-carousel-item>
