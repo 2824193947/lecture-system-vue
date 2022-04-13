@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <el-table :data="tableData" style="width: 98%">
+    <el-table :data="tableData" style="width: 98%; margin: 0 10px;" :row-class-name="tableRowClassName" >
       <el-table-column label="预约讲座" prop="lectureinfo" />
       <el-table-column label="教室" prop="classroomname" />
       <el-table-column label="日期" prop="date" />
@@ -27,6 +27,17 @@ import { onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 import { SelectLecture, AddAppointment } from '../views/service';
 import { ElMessageBox, ElMessage } from 'element-plus';
+const tableRowClassName = ({
+  row,
+  rowIndex,
+}) => {
+  if (rowIndex === 1) {
+    return 'warning-row'
+  } else if (rowIndex === 3) {
+    return 'success-row'
+  }
+  return ''
+}
 
 let tableData = ref([])
 const dialogVisible = ref(false)
@@ -89,5 +100,11 @@ const handleClose = (done) => {
 }
 .dialog-footer button:first-child {
   margin-right: 10px;
+}
+.el-table .warning-row {
+  --el-table-tr-bg-color: var(--el-color-warning-light-9);
+}
+.el-table .success-row {
+  --el-table-tr-bg-color: var(--el-color-success-light-9);
 }
 </style>

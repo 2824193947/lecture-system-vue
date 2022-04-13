@@ -9,7 +9,7 @@ export const loginInReqRegister = (name, password) => {
 };
 
 export const deleteUser = (name) => {
-	return http.get("/Home/deleteUser", {params: { name: name }})
+	return http.get("/Home/deleteUser", { params: { name: name } })
 }
 
 export const upData = (id, name, password, oldname, picture) => {
@@ -24,9 +24,9 @@ export const roomAppiont = (id, classRoomName) => {
 	});
 };
 
-export const AddRoom = (classRoomName) => {
+export const AddRoom = (classRoomName, floor, classroomNumber) => {
 	return http.get("/Home/AddClassroom", {
-		params: { classRoomName },
+		params: { classRoomName, floor, classroomNumber },
 	});
 };
 
@@ -96,8 +96,8 @@ export const SelectAppointment = (name) => {
 	});
 };
 
-export const UpdateAppointment = (  sign,  classroomname, lectureinfo,  date) => {
+export const UpdateAppointment = (sign, classroomname, lectureinfo, date) => {
 	return http.get("/Home/updateappointment", {
-		params: {   sign, classroomname, lectureinfo,  date }
+		params: { sign, classroomname, lectureinfo, date }
 	});
 };

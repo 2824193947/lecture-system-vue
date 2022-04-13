@@ -9,11 +9,11 @@
 		</el-header>
 		<el-container style="border: 1px solid #eee" :style="container">
 			<el-aside width="17%">
-				<div class="menu-head">
+				<div class="menu-head" style="cursor: pointer;">
 					<i class="fab fa-audible"></i>
-					<span>文博教育讲座预约系统</span>
+					<span @click="page">文博教育讲座预约系统</span>
 				</div>
-				<el-menu :default-openeds="['3']">
+				<el-menu :default-openeds="['1']">
 					<el-sub-menu index="1" v-if="role">
 						<template #title>
 							<i class="el-icon-message"></i>管理员操作
@@ -94,6 +94,9 @@ export default {
 		this.role = LocalStorage.getLocalstore("studentInfo").role === "admin" ? true : false
 	},
 	methods: {
+		page() {
+			this.$router.push("/Home/page");
+		},
 		pushUpdata() {
 			this.$router.push("/Home/Updata");
 		},
@@ -159,8 +162,12 @@ export default {
 	}
 }
 .el-aside {
+	position: fixed;
+	top: 0;
+	left: 0;
 	background-color: rgb(211, 211, 211);
 	min-height: 100vh;
+	overflow: scroll;
 	.el-menu {
 		background-color: rgb(211, 211, 211);
 		.el-menu-item-group {
@@ -177,5 +184,9 @@ export default {
 .router-container {
 	min-height: 100vh;
 	flex: 1;
+	margin-left: 256px;
+}
+.el-aside::-webkit-scrollbar {
+    display: none;
 }
 </style>

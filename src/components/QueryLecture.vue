@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <el-table :data="tableData" style="width: 98%">
+    <el-table :data="tableData" style="width: 95%; margin: 0 10px;">
       <el-table-column label="预约讲座" prop="lectureinfo" />
       <el-table-column label="教室" prop="classroomname" />
       <el-table-column label="日期" prop="date" />

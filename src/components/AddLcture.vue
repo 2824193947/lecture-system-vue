@@ -7,12 +7,8 @@
 				<el-divider>请输入</el-divider>
 				<div style="width: 100%; position: relative; margin: auto; display: flex;">
 					<el-select v-model="ClassRoom" class="m-2" placeholder="选择教室" size="large">
-						<el-option
-							v-for="item in options"
-							:key="item.classroomname"
-							:label="item.classroomname"
-							:value="item.classroomname"
-						></el-option>
+						<el-option v-for="item in options" :key="item.classroomname" :label="item.classroomname"
+							:value="item.classroomname"></el-option>
 					</el-select>
 					<el-input v-model="lctureInfo" placeholder="请输入讲座名称" />
 					<el-date-picker v-model="value1" type="date" placeholder="Pick a day"></el-date-picker>
@@ -20,6 +16,17 @@
 				</div>
 			</el-main>
 		</el-container>
+		<el-table :data="tableData" style="width: 95%; margin: 0 10px;">
+			<el-table-column label="预约讲座" prop="lectureinfo" />
+			<el-table-column label="教室" prop="classroomname" />
+			<el-table-column label="日期" prop="date" />
+			<el-table-column align="right">
+				<template #default="scope">
+					<el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">Delete
+					</el-button>
+				</template>
+			</el-table-column>
+		</el-table>
 	</div>
 </template>
 
@@ -31,7 +38,7 @@ import { useStore } from "vuex";
 import QueryLecture from "./QueryLecture.vue"
 export default {
 	name: "AddLcture",
-	components: {QueryLecture},
+	components: { QueryLecture },
 	setup(props) {
 		const container = {
 			width: "100%",
@@ -42,6 +49,7 @@ export default {
 		const value1 = ref('')
 		const options = ref([])
 		const dateArr = ref([])
+		const tableData = ref([])
 
 		watch(value1, (newval) => {
 			console.log(newval);
@@ -54,19 +62,25 @@ export default {
 			}
 		})
 		watch(ClassRoom, (newval) => {
-			SelectLectureClass(newval).then((res) =>{
-				console.log("查询教室预约日期",res.data);
+			SelectLectureClass(newval).then((res) => {
+				console.log("查询教室预约日期", res.data);
 				res.data.forEach(item => {
 					dateArr.value.push(item.date)
 				});
 			})
 		})
+		const selectlect1 = () => {
+			SelectLecture().then((res) => {
+				tableData.value = res.data
+			})
+		}
 		onMounted(() => {
 			AllClassRoom().then((res) => {
-				console.log("教室信息",res.data);
+				console.log("教室信息", res.data);
 				options.value = res.data
 			})
 			selectlect()
+			selectlect1()
 		})
 
 		const Add = () => {
@@ -80,6 +94,7 @@ export default {
 						console.log(res);
 						if (res.data === '添加讲座成功') {
 							ElMessage.success("新增成功");
+							selectlect1()
 						} else {
 							ElMessage.error("新增失败");
 						}
@@ -116,6 +131,7 @@ export default {
 			value1,
 			Add,
 			store,
+			tableData
 		};
 	},
 };
@@ -126,6 +142,7 @@ export default {
 	margin: 0 10px;
 	width: 300px;
 }
+
 .el-button {
 	margin-left: 10px;
 }

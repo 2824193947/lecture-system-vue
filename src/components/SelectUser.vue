@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <el-table :data="tableData" style="width: 98%">
+    <el-table :data="tableData" style="width: 95%; margin: 0 10px;">
       <el-table-column label="用户名" prop="name" />
       <el-table-column label="权限" prop="role" />
       <el-table-column align="right">

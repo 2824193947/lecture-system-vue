@@ -9,7 +9,7 @@
                 :disabled="item.disabled"
             ></el-option>
         </el-select>
-        <el-table :data="tableData" style="width: 98%">
+        <el-table :data="tableData" style="width: 95%; margin: 0 10px;">
             <el-table-column label="用户名" prop="name" />
             <el-table-column label="教室" prop="classroomname" />
             <el-table-column label="讲座名" prop="lectrueinfo" />
