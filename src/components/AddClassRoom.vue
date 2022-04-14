@@ -23,12 +23,12 @@
 			<el-table-column label="教室" prop="classroomname" />
 			<el-table-column label="楼层" prop="floor" />
 			<el-table-column label="教室楼号" prop="classroomNumber" />
-			<el-table-column align="right">
+			<!-- <el-table-column align="right">
 				<template #default="scope">
 					<el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">Delete
 					</el-button>
 				</template>
-			</el-table-column>
+			</el-table-column> -->
 		</el-table>
 	</div>
 </template>

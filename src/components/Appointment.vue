@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <el-table :data="tableData" style="width: 98%; margin: 0 10px;" :row-class-name="tableRowClassName" >
+    <el-table :data="tableData" style="width: 98%; margin: 0 10px;" :row-class-name="tableRowClassName">
       <el-table-column label="预约讲座" prop="lectureinfo" />
       <el-table-column label="教室" prop="classroomname" />
       <el-table-column label="日期" prop="date" />
@@ -27,6 +27,8 @@ import { onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 import { SelectLecture, AddAppointment } from '../views/service';
 import { ElMessageBox, ElMessage } from 'element-plus';
+import LocalStorage from "../utils/store"
+
 const tableRowClassName = ({
   row,
   rowIndex,
@@ -45,9 +47,11 @@ const info = ref("")
 const classroom = ref("")
 const date = ref("")
 const Username = ref("")
+const role = ref("")
 const store = useStore()
 Username.value = store.state.studentdata.name
 
+role.value = LocalStorage.getLocalstore("studentInfo").role === "admin" ? true : false
 onMounted(() => {
   console.log("name", Username.value);
   selectlect()
@@ -60,10 +64,14 @@ const selectlect = () => {
 }
 // 删除按钮
 const handleDelete = (index, row) => {
-  dialogVisible.value = true
-  classroom.value = row.classroomname
-  info.value = row.lectureinfo
-  date.value = row.date
+  if (role.value) {
+    dialogVisible.value = true
+    classroom.value = row.classroomname
+    info.value = row.lectureinfo
+    date.value = row.date
+  } else {
+    ElMessage.warning("通知管理员添加权限");
+  }
 }
 // 删除方法
 const del = (name, classroomname, lectureinfo, date, sign) => {
@@ -98,12 +106,15 @@ const handleClose = (done) => {
   width: 100%;
   height: 90vh;
 }
+
 .dialog-footer button:first-child {
   margin-right: 10px;
 }
+
 .el-table .warning-row {
   --el-table-tr-bg-color: var(--el-color-warning-light-9);
 }
+
 .el-table .success-row {
   --el-table-tr-bg-color: var(--el-color-success-light-9);
 }

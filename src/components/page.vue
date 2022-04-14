@@ -2,19 +2,20 @@
     <div class="addC">
         <div class="card-container">
             <el-card class="box-card">
-                <div class="header-card">用户数</div>
+                <div class="header-card">日历</div>
                 <div style="display: flex;">
-                    <div style="font-size: 50px; color: #4a91e2; width: 100%">
-                        10<span class="fab fa-creative-commons-by" style="font-size: 50px; color: #4a91e2; margin-left: 5px;"></span>
-                    </div>
+                </div>
+                <div class="hidden-scroll"
+                    style="height: 259px; overflow: scroll; border-radius: 4px; border: 1px solid #d9d9d9;">
+                    <a-calendar />
                 </div>
                 <div class="echarts1"></div>
             </el-card>
             <el-card class="box-card">
                 <div class="header-card">讲座数量</div>
                 <div style="display: flex;">
-                    <div style="font-size: 50px; color: #4a91e2; width: 100%">
-                        19<span class="fab fa-airbnb"
+                    <div style="font-size: 50px; line-height: 50px; color: #4a91e2; width: 100%">
+                        {{ this.option1.series[0].data[0].value }}<span class="fab fa-airbnb"
                             style="font-size: 50px; color: #4a91e2; margin-left: 5px;"></span>
                     </div>
                 </div>
@@ -24,10 +25,9 @@
                 <div class="header-card">功能</div>
                 <div class="timeline">
                     <el-timeline>
-                    <el-timeline-item v-for="(item) in active"
-                        :timestamp="item">
-                    </el-timeline-item>
-                </el-timeline>
+                        <el-timeline-item v-for="(item) in active" :timestamp="item">
+                        </el-timeline-item>
+                    </el-timeline>
                 </div>
             </el-card>
         </div>
@@ -54,80 +54,24 @@
 
 <script>
 import * as echarts from 'echarts';
-var option = {
-    xAxis: {
-        type: 'category',
-        data: ['普通用户', '管理员']
-    },
-    yAxis: {
-        type: 'value'
-    },
-    series: [
-        {
-            data: [120, 200],
-            type: 'bar',
-            showBackground: true,
-            backgroundStyle: {
-                color: 'rgba(180, 180, 180, 0.2)'
-            }
-        }
-    ]
-};
-var option1 = {
-    tooltip: {
-        trigger: 'item'
-    },
-    legend: {
-        top: '5%',
-        left: '10%'
-    },
-    series: [
-        {
-            name: 'Access From',
-            type: 'pie',
-            radius: ['40%', '70%'],
-            avoidLabelOverlap: false,
-            itemStyle: {
-                borderRadius: 10,
-                borderColor: '#fff',
-                borderWidth: 2
-            },
-            label: {
-                show: false,
-                position: 'center'
-            },
-            emphasis: {
-                label: {
-                    show: true,
-                    fontSize: '40',
-                    fontWeight: 'bold'
-                }
-            },
-            labelLine: {
-                show: false
-            },
-            data: [
-                { value: 1048, name: 'Search Engine' },
-                { value: 735, name: 'Direct' },
-            ]
-        }
-    ]
-};
+import LocalStorage from "../utils/store"
+import { SelectLecture, SelectAppointment } from '../views/service'
 const activitie = [
-  {
-    content: 'Event start',
-    timestamp: '2018-04-15',
-  },
-  {
-    content: 'Approved',
-    timestamp: '2018-04-13',
-  },
-  {
-    content: 'Success',
-    timestamp: '2018-04-11',
-  },
+    {
+        content: 'Event start',
+        timestamp: '2018-04-15',
+    },
+    {
+        content: 'Approved',
+        timestamp: '2018-04-13',
+    },
+    {
+        content: 'Success',
+        timestamp: '2018-04-11',
+    },
 ]
 const activities = ["登录", "发布讲座", "教室相关信息", "用户预约讲座", "进行现场签到"]
+const activities1 = ["登录", "用户预约讲座", "进行现场签到"]
 export default {
     name: "Add",
     data() {
@@ -138,21 +82,77 @@ export default {
                 { src: '../images/333.jpg' },
                 { src: '../images/444.jpg' },
             ],
+            option1: {
+                tooltip: {
+                    trigger: 'item'
+                },
+                legend: {
+                    top: '5%',
+                    left: '10%'
+                },
+                series: [
+                    {
+                        name: '讲座数量',
+                        type: 'pie',
+                        radius: ['35%', '60%'],
+                        avoidLabelOverlap: false,
+                        itemStyle: {
+                            borderRadius: 10,
+                            borderColor: '#fff',
+                            borderWidth: 2
+                        },
+                        label: {
+                            show: false,
+                            position: 'center'
+                        },
+                        emphasis: {
+                            label: {
+                                show: true,
+                                fontSize: '40',
+                                fontWeight: 'bold'
+                            }
+                        },
+                        labelLine: {
+                            show: false
+                        },
+                        data: [
+                            { value: 90, name: '讲座数量' },
+                            { value: 5, name: '预约讲座数量' },
+                        ]
+                    }
+                ]
+            },
             activities: activitie,
-            active: activities
+            active: this.role ? activities : activities1,
+            role: false,
+           Username: LocalStorage.getLocalstore("studentInfo").name,
         }
     },
-    mounted() {
-        var chartDom = document.querySelector('.echarts1');
+    created() {
+        this.role = LocalStorage.getLocalstore("studentInfo").role === "admin" ? true : false
+    },
+    async mounted() {
+        await new Promise(resolve => {
+            this.sLecture()
+            SelectAppointment(this.Username).then((res) => {
+                this.option1.series[0].data[1].value = res.data.length
+                console.log("🚀 ~ this.option1", this.option1.series[0].data)
+                resolve()
+            })
+        })
+        console.log(1111111111);
         var chartDom1 = document.querySelector('.echarts2');
-        var myChart = echarts.init(chartDom);
         var myChart1 = echarts.init(chartDom1);
-        option && myChart.setOption(option);
-        option && myChart1.setOption(option1);
+        this.option1 && myChart1.setOption(this.option1);
     },
     methods: {
         getImageUrl(name) {
             return new URL(`../images/${name}`, import.meta.url).href
+        },
+        sLecture() {
+            SelectLecture().then((res) => {
+                this.option1.series[0].data[0].value = res.data.length
+            })
         }
     }
 };
@@ -179,6 +179,12 @@ export default {
         .box-card1 {
             width: 30%;
             height: 350px;
+            margin-left: 10px;
+        }
+
+        .box-card-role {
+            width: 30%;
+            height: 135px;
             margin-left: 10px;
         }
     }
@@ -232,9 +238,18 @@ img {
     background-color: #0099FF;
     color: #fff;
     margin-bottom: 10px;
+    border-radius: 5px;
 }
 
 .timeline {
     margin-top: 80px;
+}
+
+.hidden-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.ant-picker-calendar-full .ant-picker-panel .ant-picker-calendar-date {
+    height: 50px !important;
 }
 </style>

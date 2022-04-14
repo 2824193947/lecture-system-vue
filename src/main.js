@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import ElementPlus, { ElMessage } from "element-plus";
 import "element-plus/dist/index.css";
+import 'ant-design-vue/dist/antd.css';
 import "./common/common.css"
 import store from "./store";
 
@@ -28,7 +29,10 @@ use([
   TooltipComponent
 ])
 
+import { Calendar } from 'ant-design-vue';
+
 const app = createApp(App);
+app.use(Calendar);
 app.component('v-chart', ECharts)
 app.use(router);
 app.use(ElementPlus);

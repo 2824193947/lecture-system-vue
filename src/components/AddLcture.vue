@@ -20,12 +20,6 @@
 			<el-table-column label="预约讲座" prop="lectureinfo" />
 			<el-table-column label="教室" prop="classroomname" />
 			<el-table-column label="日期" prop="date" />
-			<el-table-column align="right">
-				<template #default="scope">
-					<el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">Delete
-					</el-button>
-				</template>
-			</el-table-column>
 		</el-table>
 	</div>
 </template>
@@ -62,6 +56,7 @@ export default {
 			}
 		})
 		watch(ClassRoom, (newval) => {
+			dateArr.value = []
 			SelectLectureClass(newval).then((res) => {
 				console.log("查询教室预约日期", res.data);
 				res.data.forEach(item => {
@@ -71,7 +66,11 @@ export default {
 		})
 		const selectlect1 = () => {
 			SelectLecture().then((res) => {
+				res.data.forEach(item => {
+					item.date = item.date + ' 8:00'
+				})
 				tableData.value = res.data
+                console.log("🚀 ~ tableData.value", tableData.value)
 			})
 		}
 		onMounted(() => {

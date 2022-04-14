@@ -30,9 +30,15 @@ export const AddRoom = (classRoomName, floor, classroomNumber) => {
 	});
 };
 
-export const UpdataRoom = (id, classRoomName) => {
+export const UpdataRoom = (classRoomName, floor, classroomNumber) => {
 	return http.get("/Home/ModifyClassroom", {
-		params: { id, classRoomName },
+		params: { classRoomName, floor, classroomNumber },
+	});
+};
+
+export const DeleteClassRoom = (classroomname) => {
+	return http.get("/Home/deleteClassroom", {
+		params: { classroomname },
 	});
 };
 

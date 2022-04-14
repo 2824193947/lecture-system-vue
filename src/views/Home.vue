@@ -36,9 +36,8 @@
 						</template>
 						<el-menu-item-group>
 							<el-menu-item index="3-1" @click="pushMyData">我的信息</el-menu-item>
-							<el-menu-item index="3-2" @click="pushUpdata">修改信息</el-menu-item>
-							<el-menu-item index="3-3" @click="$router.push('/Home/Appointment')">讲座预约</el-menu-item>
-							<el-menu-item index="3-4" @click="$router.push('/Home/Dign')">待参加讲座</el-menu-item>
+							<el-menu-item index="3-2" @click="$router.push('/Home/Appointment')">讲座预约</el-menu-item>
+							<el-menu-item index="3-3" @click="$router.push('/Home/Dign')">待参加讲座</el-menu-item>
 						</el-menu-item-group>
 					</el-sub-menu>
 					<el-sub-menu index="4" v-if="role">
