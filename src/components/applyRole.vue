@@ -1,12 +1,11 @@
 <template>
   <div class="container">
     <el-table :data="tableData" style="width: 98%; margin: 0 10px;" :row-class-name="tableRowClassName">
-      <el-table-column label="预约讲座" prop="lectureinfo" />
-      <el-table-column label="教室" prop="classroomname" />
-      <el-table-column label="日期" prop="date" />
+      <el-table-column label="账号" prop="name" />
+      <el-table-column label="请求权限" prop="role" />
       <el-table-column align="right">
         <template #default="scope">
-          <el-button size="small" type="success" @click="handleDelete(scope.$index, scope.row)">预约</el-button>
+          <el-button size="small" type="success" @click="handleDelete(scope.$index, scope.row)">同意</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -15,7 +14,7 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="dialogVisible = false">取消</el-button>
-          <el-button type="primary" @click="del(Username, classroom, info, date, 0)">确认</el-button>
+          <el-button type="primary" @click="del(classroom, info)">确认</el-button>
         </span>
       </template>
     </el-dialog>
@@ -24,8 +23,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { useStore } from 'vuex';
-import { SelectLecture, AddAppointment } from '../views/service';
+import { queryApply, ModifyRole, deleteApply } from '../views/service';
 import { ElMessageBox, ElMessage } from 'element-plus';
 import LocalStorage from "../utils/store"
 
@@ -50,14 +48,14 @@ const Username = ref("")
 const role = ref("")
 Username.value = LocalStorage.getLocalstore("studentInfo").name
 
-role.value = LocalStorage.getLocalstore("studentInfo").role === "student" ? true : false
+role.value = LocalStorage.getLocalstore("studentInfo").role === "admin" ? true : false
 onMounted(() => {
   console.log("name", Username.value);
   selectlect()
 })
 
 const selectlect = () => {
-  SelectLecture().then((res) => {
+  queryApply().then((res) => {
     tableData.value = res.data
   })
 }
@@ -65,26 +63,23 @@ const selectlect = () => {
 const handleDelete = (index, row) => {
   if (role.value) {
     dialogVisible.value = true
-    classroom.value = row.classroomname
-    info.value = row.lectureinfo
-    date.value = row.date
+    classroom.value = row.name
+    info.value = row.role
   } else {
-    ElMessage.warning("补充完整个人信息后, 向管理员请求权限 !");
+    ElMessage.warning("通知管理员添加权限");
   }
 }
 // 删除方法
-const del = (name, classroomname, lectureinfo, date, sign) => {
+const del = (userName, role) => {
   dialogVisible.value = false
-  AddAppointment(name, classroomname, lectureinfo, date, sign).then((res) => {
-    if (res.data === "预约成功") {
-      ElMessage.success("预约成功");
-    } else if (res.data === "已预约") {
-      ElMessage.warning("已预约");
-    } else {
-      ElMessage.error("预约失败");
-    }
+  ModifyRole(userName, role).then((res) => {
+    ElMessage.success("修改成功");
     selectlect()
+  }).catch(() => {
+    ElMessage.error("修改失败");
   })
+  deleteApply(userName)
+  selectlect()
 }
 // 确认关闭按钮
 const handleClose = (done) => {

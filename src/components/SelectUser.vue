@@ -80,7 +80,6 @@ onMounted(() => {
 
 const selectlect = () => {
   SelectUser().then((res) => {
-    console.log("🚀 ~ res", res.data)
     tableData.value = res.data
   })
 }

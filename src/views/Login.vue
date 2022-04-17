@@ -61,8 +61,7 @@ export default {
 		submitFormTow(params) {
 			loginInReqRegister(params.name, params.password).then(
 				(res) => {
-					console.log(res);
-
+					console.log("🚀 ~ res", res)
 					if (res.data === "注册失败") {
 						this.$message.error("注册失败");
 					} else {
@@ -92,6 +91,7 @@ export default {
 	height: 100vh;
 	background-color: #fff;
 }
+
 .Login {
 	width: 30%;
 	height: 40%;
@@ -108,6 +108,7 @@ export default {
 
 	perspective: 800px;
 }
+
 .front {
 	backface-visibility: hidden;
 	height: 500px;
@@ -115,12 +116,14 @@ export default {
 	z-index: 1;
 	position: absolute;
 }
+
 .back {
 	transform: rotateY(180deg);
 	backface-visibility: hidden;
 	height: 500px;
 	width: 500px;
 }
+
 .switch {
 	outline: none;
 	color: rgb(47, 255, 64);
@@ -128,12 +131,15 @@ export default {
 	top: 10%;
 	left: 48%;
 }
+
 .el-popper {
 	display: none;
 }
+
 .swValue {
 	transform: rotateY(180deg);
 }
+
 .tranf {
 	height: 500px;
 	transition: 1s;

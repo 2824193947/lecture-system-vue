@@ -13,14 +13,15 @@
 					<i class="fab fa-audible"></i>
 					<span @click="page">文博教育讲座预约系统</span>
 				</div>
-				<el-menu :default-openeds="['1']">
+				<el-menu :default-openeds="[role ? '1' : '3']" :unique-opened="true">
 					<el-sub-menu index="1" v-if="role">
 						<template #title>
 							<i class="el-icon-message"></i>管理员操作
 						</template>
 						<el-menu-item-group>
 							<el-menu-item index="1-1" @click="$router.push('/Home/SelectUser')">所有用户</el-menu-item>
-							<el-menu-item index="1-2" @click="$router.push('/Home/AdminSign')">人员签到</el-menu-item>
+							<el-menu-item index="1-2" @click="$router.push('/Home/applyRole')">受理权限</el-menu-item>
+							<el-menu-item index="1-3" @click="$router.push('/Home/AdminSign')">人员签到</el-menu-item>
 						</el-menu-item-group>
 					</el-sub-menu>
 					<el-sub-menu index="2" v-if="role">
@@ -36,8 +37,9 @@
 						</template>
 						<el-menu-item-group>
 							<el-menu-item index="3-1" @click="pushMyData">我的信息</el-menu-item>
-							<el-menu-item index="3-2" @click="$router.push('/Home/Appointment')">讲座预约</el-menu-item>
-							<el-menu-item index="3-3" @click="$router.push('/Home/Dign')">待参加讲座</el-menu-item>
+							<el-menu-item index="3-2" @click="$router.push('/Home/Updata')">信息修改</el-menu-item>
+							<el-menu-item index="3-3" @click="$router.push('/Home/Appointment')" v-if="!role">讲座预约</el-menu-item>
+							<el-menu-item index="3-4" @click="$router.push('/Home/Dign')" v-if="!role">待参加讲座</el-menu-item>
 						</el-menu-item-group>
 					</el-sub-menu>
 					<el-sub-menu index="4" v-if="role">

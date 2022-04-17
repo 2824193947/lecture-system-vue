@@ -10,7 +10,7 @@
 		<el-form-item label="用户名" prop="id" v-if="!showCheck">
 			<el-input v-model="formModel.id"></el-input>
 		</el-form-item>
-		<el-form-item label="名字" prop="name" v-if="showCheck">
+		<el-form-item label="账号" prop="name" v-if="showCheck">
 			<el-input v-model="formModel.name"></el-input>
 		</el-form-item>
 		<el-form-item label="密码" prop="password">

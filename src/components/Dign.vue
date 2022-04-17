@@ -40,6 +40,7 @@ import { onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 import { SelectAppointment, UpdateAppointment } from '../views/service'
 import { ElMessageBox, ElMessage } from 'element-plus'
+import LocalStorage from "../utils/store"
 
 
 let tableData = ref([])
@@ -49,7 +50,7 @@ const classroom = ref("")
 const date = ref("")
 const Username = ref("")
 const store = useStore()
-Username.value = store.state.studentdata.name
+Username.value = LocalStorage.getLocalstore("studentInfo").name
 
 onMounted(() => {
     console.log(11111, Username.value);

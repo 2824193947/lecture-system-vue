@@ -13,10 +13,10 @@
             </el-card>
             <el-card class="box-card">
                 <div class="header-card">讲座数量</div>
-                <div style="display: flex;">
+                <div style="display: flex; width: 100%;">
                     <div style="font-size: 50px; line-height: 50px; color: #4a91e2; width: 100%">
-                        {{ this.option1.series[0].data[0].value }}<span class="fab fa-airbnb"
-                            style="font-size: 50px; color: #4a91e2; margin-left: 5px;"></span>
+                        {{ this.option1.series[0].data[0].value }}
+                        <span class="fab fa-airbnb" style="font-size: 50px; color: #4a91e2; margin-left: 5px;"></span>
                     </div>
                 </div>
                 <div class="echarts2"></div>
@@ -40,7 +40,7 @@
             <div style="display: flex;">
                 <div
                     style="font-size: 15px; display: inline-block; width: 700px; margin-right: 20px; text-align: left; font-weight: 100">
-                    预约管理系统无纸化智能会议功能：实现讲座管理的主体功能：包括会登录注册, 讲座的预约发布, 以及人员信息修改, 签到的功能, 以及教室的相关信息操作。
+                    无纸化文博教育预约管理系统：实现讲座管理的主体功能：包括会登录注册, 受理权限, 讲座的预约发布, 以及人员信息修改, 签到的功能, 以及教室的相关信息操作。
                 </div>
                 <el-carousel :interval="5000" arrow="always">
                     <el-carousel-item v-for="item in imgArr" :key="item.src">
@@ -123,9 +123,13 @@ export default {
                 ]
             },
             activities: activitie,
-            active: this.role ? activities : activities1,
             role: false,
-           Username: LocalStorage.getLocalstore("studentInfo").name,
+            Username: LocalStorage.getLocalstore("studentInfo").name,
+        }
+    },
+    computed: {
+        active() {
+            return this.role ? activities : activities1
         }
     },
     created() {
@@ -251,5 +255,9 @@ img {
 
 .ant-picker-calendar-full .ant-picker-panel .ant-picker-calendar-date {
     height: 50px !important;
+}
+
+.el-card__body {
+    width: 100%;
 }
 </style>

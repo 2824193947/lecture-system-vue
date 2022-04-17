@@ -15,6 +15,7 @@ import Appointment from "../components/Appointment.vue";
 import Dign from "../components/Dign.vue";
 import AdminSign from "../components/AdminSign.vue";
 import page from "../components/page.vue";
+import applyRole from "../components/applyRole.vue";
 const routes = [
 	{ path: "/", component: Login },
 	{
@@ -35,6 +36,7 @@ const routes = [
 			{ path: "Appointment", component: Appointment },
 			{ path: "Dign", component: Dign },
 			{ path: "AdminSign", component: AdminSign },
+			{ path: "applyRole", component: applyRole },
 		],
 	},
 ];

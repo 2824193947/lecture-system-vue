@@ -12,9 +12,9 @@ export const deleteUser = (name) => {
 	return http.get("/Home/deleteUser", { params: { name: name } })
 }
 
-export const upData = (id, name, password, oldname, picture) => {
+export const upData = (id, phoneNumber, mail, age, youName, gender, complete, password, name) => {
 	return http.get("/Home/ModifyStudent", {
-		params: { id, name, password, oldname, picture },
+		params: { id, phoneNumber, mail, age, youName, gender, complete, password, name},
 	});
 };
 
@@ -105,5 +105,21 @@ export const SelectAppointment = (name) => {
 export const UpdateAppointment = (sign, classroomname, lectureinfo, date) => {
 	return http.get("/Home/updateappointment", {
 		params: { sign, classroomname, lectureinfo, date }
+	});
+};
+
+export const addApply = (name, role) => {
+	return http.get("/Home/addApply", {
+		params: { name, role }
+	});
+};
+
+export const queryApply = () => {
+	return http.get("/Home/queryApply", {});
+};
+
+export const deleteApply = (name) => {
+	return http.get("/Home/deleteApply", {
+		params: { name }
 	});
 };
